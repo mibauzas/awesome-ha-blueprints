@@ -384,7 +384,11 @@ condition:
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
+        {%- if trigger.event.data.command is defined -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {%- else -%}
+        {{""}}
+        {%- endif -%}
         {%- endif -%}
         {%- endset -%}
         {{ trigger_action not in ["","None"] }}
